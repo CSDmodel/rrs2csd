@@ -1,6 +1,6 @@
 clear;
 
-infile=dir('A*.L3m_MO_RRS_Rrs_deg.nc');
+infile=dir('test.nc');
 
 [num kk]=size(infile);
 dc=360;dl=180;
@@ -18,7 +18,7 @@ po667=555.0/667.0;po678=555.0/678.0;
 lf1=[-0.209,0.426,-0.567,0.312,-0.185,0.523,-0.092,-0.418,0.064]; 
 lf2=[-0.285,0.215,-0.457,0.404,-0.128,0.300,-0.059,-0.275,0.100];
 
-for k=1:1
+for k=1:num
     input=char(infile(k).name)
     
     rrs412=double(ncread(input,'Rrs_412'));
