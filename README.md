@@ -1,3 +1,5 @@
+rrs2csd.m Documentation
+
 This function calclulates CSD slopes from remote sensing reflectance by using the CSD model. Remote sensing reflectance at 8 MODIS bands (412, 443, 469, 488, 531, 547, 555,and 678 nm) are required for this function. A large CSD slope indicates a large proportion of smaller phytoplankton, whereas a small CSD slope suggests that larger phytoplankton dominate. To avoid unrealistic values of the CSD slope, we defined the upper and lower limits of the CSD slope as 3.0 and 0.0, respectively.
 
 Remote sensing refrectance can be downloaded from Ocean Color Website (https://oceancolor.gsfc.nasa.gov/).
