@@ -97,35 +97,33 @@ for k=1:num
     data(:,:,1)=aph412;data(:,:,2)=aph443;data(:,:,3)=aph469;data(:,:,4)=aph488;
     data(:,:,5)=aph531;data(:,:,6)=aph547;data(:,:,7)=aph555;
     
-    for i=1:dc
-        for j=1:dl
-            aph_std(i,j)=std(data(i,j,:));
-            aph_mean(i,j)=mean(data(i,j,:));
-        end
-    end
-    
-    for i=1:dc
-        for j=1:dl
-            if  (aph412(i,j)>aph469(i,j))
-                data2(i,j,1)=((data(i,j,1)-aph_mean(i,j))./aph_std(i,j)).*lf1(2);
-                data2(i,j,2)=((data(i,j,2)-aph_mean(i,j))./aph_std(i,j)).*lf1(3);
-                data2(i,j,3)=((data(i,j,3)-aph_mean(i,j))./aph_std(i,j)).*lf1(4);
-                data2(i,j,4)=((data(i,j,4)-aph_mean(i,j))./aph_std(i,j)).*lf1(5);
-                data2(i,j,5)=((data(i,j,5)-aph_mean(i,j))./aph_std(i,j)).*lf1(6);
-                data2(i,j,6)=((data(i,j,6)-aph_mean(i,j))./aph_std(i,j)).*lf1(7);
-                data2(i,j,7)=((data(i,j,7)-aph_mean(i,j))./aph_std(i,j)).*lf1(8);
-                data2(i,j,8)=chl(i,j).*lf1(9);
-                csd(i,j)=(lf1(1)+exp(sum(data2(i,j,:)))).^(-1);
-            else
-                data2(i,j,1)=((data(i,j,1)-aph_mean(i,j))./aph_std(i,j)).*lf2(2);
-                data2(i,j,2)=((data(i,j,2)-aph_mean(i,j))./aph_std(i,j)).*lf2(3);
-                data2(i,j,3)=((data(i,j,3)-aph_mean(i,j))./aph_std(i,j)).*lf2(4);
-                data2(i,j,4)=((data(i,j,4)-aph_mean(i,j))./aph_std(i,j)).*lf2(5);
-                data2(i,j,5)=((data(i,j,5)-aph_mean(i,j))./aph_std(i,j)).*lf2(6);
-                data2(i,j,6)=((data(i,j,6)-aph_mean(i,j))./aph_std(i,j)).*lf2(7);
-                data2(i,j,7)=((data(i,j,7)-aph_mean(i,j))./aph_std(i,j)).*lf2(8);
-                data2(i,j,8)=chl(i,j).*lf2(9);
-                csd(i,j)=(lf2(1)+exp(sum(data2(i,j,:)))).^(-1);
+    aph_std = std(data,0,3);
+    aph_mean = mean(data,3);
+
+    data2 = NaN(length(lon),length(lat),8);
+    csd = NaN(length(lon),length(lat));
+    for iLon = 1 : length(lon)
+        for iLat = 1 : length(lat)
+            if  (aph412(iLon,iLat) > aph469(iLon,iLat))
+                data2(iLon,iLat,1)=((data(iLon,iLat,1)-aph_mean(iLon,iLat))./aph_std(iLon,iLat)).*lf1(2);
+                data2(iLon,iLat,2)=((data(iLon,iLat,2)-aph_mean(iLon,iLat))./aph_std(iLon,iLat)).*lf1(3);
+                data2(iLon,iLat,3)=((data(iLon,iLat,3)-aph_mean(iLon,iLat))./aph_std(iLon,iLat)).*lf1(4);
+                data2(iLon,iLat,4)=((data(iLon,iLat,4)-aph_mean(iLon,iLat))./aph_std(iLon,iLat)).*lf1(5);
+                data2(iLon,iLat,5)=((data(iLon,iLat,5)-aph_mean(iLon,iLat))./aph_std(iLon,iLat)).*lf1(6);
+                data2(iLon,iLat,6)=((data(iLon,iLat,6)-aph_mean(iLon,iLat))./aph_std(iLon,iLat)).*lf1(7);
+                data2(iLon,iLat,7)=((data(iLon,iLat,7)-aph_mean(iLon,iLat))./aph_std(iLon,iLat)).*lf1(8);
+                data2(iLon,iLat,8)=chl(iLon,iLat).*lf1(9);
+                csd(iLon,iLat)=(lf1(1)+exp(sum(data2(iLon,iLat,:)))).^(-1);
+            elseif (aph412(iLon,iLat) < aph469(iLon,iLat))
+                data2(iLon,iLat,1)=((data(iLon,iLat,1)-aph_mean(iLon,iLat))./aph_std(iLon,iLat)).*lf2(2);
+                data2(iLon,iLat,2)=((data(iLon,iLat,2)-aph_mean(iLon,iLat))./aph_std(iLon,iLat)).*lf2(3);
+                data2(iLon,iLat,3)=((data(iLon,iLat,3)-aph_mean(iLon,iLat))./aph_std(iLon,iLat)).*lf2(4);
+                data2(iLon,iLat,4)=((data(iLon,iLat,4)-aph_mean(iLon,iLat))./aph_std(iLon,iLat)).*lf2(5);
+                data2(iLon,iLat,5)=((data(iLon,iLat,5)-aph_mean(iLon,iLat))./aph_std(iLon,iLat)).*lf2(6);
+                data2(iLon,iLat,6)=((data(iLon,iLat,6)-aph_mean(iLon,iLat))./aph_std(iLon,iLat)).*lf2(7);
+                data2(iLon,iLat,7)=((data(iLon,iLat,7)-aph_mean(iLon,iLat))./aph_std(iLon,iLat)).*lf2(8);
+                data2(iLon,iLat,8)=chl(iLon,iLat).*lf2(9);
+                csd(iLon,iLat)=(lf2(1)+exp(sum(data2(iLon,iLat,:)))).^(-1);
             end
         end
     end
